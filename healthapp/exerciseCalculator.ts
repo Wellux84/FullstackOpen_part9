@@ -1,4 +1,4 @@
-const calculateExercises = (dailyExercises: number[], target: number): { periodLength: number, trainingDays: number, success: boolean, rating: number, ratingDescription: string, target: number, average: number } => {
+export const calculateExercises = (dailyExercises: number[], target: number): { periodLength: number, trainingDays: number, success: boolean, rating: number, ratingDescription: string, target: number, average: number } => {
   const periodLength = dailyExercises.length;
   const trainingDays = dailyExercises.filter(day => day > 0).length;
   const average = dailyExercises.reduce((sum, day) => sum + day, 0) / periodLength;
@@ -30,13 +30,15 @@ const calculateExercises = (dailyExercises: number[], target: number): { periodL
   };
 };
 
-const args = process.argv.slice(2).map(Number)
+if (process.argv[1] === import.meta.filename){
+const args = process.argv.slice(2).map(Number);
 
 if (args.map(isNaN).includes(true)) {
   throw new Error('Provided values were not numbers!');
 }
 
-const target = args[0]
-const dailyExercises = args.slice(1)
+const target = args[0];
+const dailyExercises = args.slice(1);
 
-console.log(calculateExercises(dailyExercises, target))
+console.log(calculateExercises(dailyExercises, target));
+};

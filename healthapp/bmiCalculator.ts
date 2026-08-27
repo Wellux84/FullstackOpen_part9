@@ -26,11 +26,11 @@ export const parseArguments = (args: string[]): bmiValues => {
     return {
       value1: Number(args[2]),
       value2: Number(args[3])
-    }
+    };
   } else {
     throw new Error('Provided values were not numbers!');
   }
-}
+};
 
 try {
   const { value1, value2 } = parseArguments(process.argv);
