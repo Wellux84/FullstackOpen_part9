@@ -45,8 +45,12 @@ app.post('/exercises', (req: Request, res: Response) => {
   ) {
     return res.status(400).send({ error: 'malformatted parameters' });
   }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const result = calculateExercises(daily_exercises, target);
+
+  function numberArray(arr: any[]): number[] {
+    return arr.map(Number);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = calculateExercises(numberArray(daily_exercises), target);
   return res.send({
     periodLength: result.periodLength,
     trainingDays: result.trainingDays,
