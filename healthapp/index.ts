@@ -31,6 +31,7 @@ app.get('/bmi', (req: Request, res: Response) => {
 });
 
 app.post('/exercises', (req: Request, res: Response) => {
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { daily_exercises, target } = req.body;
 
@@ -46,11 +47,8 @@ app.post('/exercises', (req: Request, res: Response) => {
     return res.status(400).send({ error: 'malformatted parameters' });
   }
 
-  function numberArray(arr: any[]): number[] {
-    return arr.map(Number);
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const result = calculateExercises(numberArray(daily_exercises), target);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = calculateExercises(daily_exercises, target);
   return res.send({
     periodLength: result.periodLength,
     trainingDays: result.trainingDays,
