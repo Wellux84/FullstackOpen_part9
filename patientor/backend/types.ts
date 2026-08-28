@@ -17,3 +17,18 @@ export interface PatientEntry {
 
 
 export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
+
+export interface NewPatient {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  ssn: string;
+  gender: string;
+  occupation: string;
+}
+
+export const Gender = {
+  Male: 'male',
+  Female: 'female',
+  Other: 'other',
+} as const;
