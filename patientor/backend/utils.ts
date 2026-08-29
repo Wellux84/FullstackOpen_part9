@@ -1,6 +1,6 @@
 import { type Request, type Response, type NextFunction } from 'express';
 import {  NewEntrySchema } from './types.ts';
-import { z } from 'zod'
+import { z } from 'zod';
 
 
 export const newPatientParser = (req: Request, _res: Response, next: NextFunction) =>{ 

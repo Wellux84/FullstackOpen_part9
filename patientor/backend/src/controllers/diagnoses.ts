@@ -7,9 +7,8 @@ router.get('/api/diagnoses', (_req, res) => {
   res.send(diagnoses);
 });
 
-router.post('/api/diagnoses', (_req, res) => {
-  const newDiagnosis = diagnosesService.addDiagnosis(_req.body);
-  res.send(newDiagnosis);
+router.post('/api/diagnoses', (_req, _res) => {
+  return
 });
 
 export default router;
