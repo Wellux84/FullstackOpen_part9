@@ -8,7 +8,7 @@ router.get('/api/diagnoses', (_req, res) => {
 });
 
 router.post('/api/diagnoses', (_req, _res) => {
-  return
+  return;
 });
 
 export default router;
