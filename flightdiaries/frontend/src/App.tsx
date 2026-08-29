@@ -49,7 +49,7 @@ function App() {
   return (
     <>
       <div>
-        <h2>Diary entries</h2>
+        <h2>Flight Diaries</h2>
 
         {diaries.map(diary => (
           <div key={diary.id}>
