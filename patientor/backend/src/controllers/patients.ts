@@ -1,26 +1,22 @@
-import express from 'express';
+import express, { type Request, type Response } from 'express';
 import patientService from '../services/patientsService.ts';
+import { type PatientEntry, type NewPatientEntry, type NonSensitivePatientEntry } from '../../types.ts';
+import { newPatientParser, errorMiddleware } from '../../utils.ts';
+
 const router = express.Router();
-import { v4 as uuidv4 } from 'uuid';
-import parsePatientEntry from '../../utils.ts';
 
-router.get('/api/patients', (_req, res) => {
-  const patients = patientService.getEntries();
-  res.send(patients);
+router.get('/api/patients', (_req, res: Response<NonSensitivePatientEntry[]>) => {
+  const data = patientService.getNonSensitiveEntries();
+  res.send(data);
 });
 
-router.post('/api/patients', (_req, res) => {
-  try {
-  const newPatientData = parsePatientEntry({ id: uuidv4(), ..._req.body });
-  const addedPatient = patientService.addPatient(newPatientData);
-  res.json(addedPatient);
-  } catch (error: unknown) {
-      let errorMessage = 'Something went wrong'
-      if (error instanceof Error) {
-        errorMessage += ': ' + error.message;
-      }
-      res.status(400).send(errorMessage);
-    }
-});
+
+router.post('/api/patients', newPatientParser, (req: Request<unknown, unknown, NewPatientEntry>
+  , res: Response<PatientEntry>) => {
+    const addedEntry = patientService.addPatient(req.body);
+    res.json(addedEntry);
+  });
+
+  router.use(errorMiddleware);
 
 export default router;

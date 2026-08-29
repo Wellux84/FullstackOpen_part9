@@ -1,4 +1,4 @@
-
+import { z } from 'zod'
 
 export interface DiagnosisEntry {
   code: string;
@@ -6,29 +6,25 @@ export interface DiagnosisEntry {
   latin?: string;
 }
 
-export interface PatientEntry {
-    id: string;
-    name: string;
-    dateOfBirth: string;
-    ssn: string;
-    gender: string;
-    occupation: string;
-}
-
-
-export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
-
-export interface NewPatient {
-  id: string;
-  name: string;
-  dateOfBirth: string;
-  ssn: string;
-  gender: string;
-  occupation: string;
-}
-
 export const Gender = {
   Male: 'male',
   Female: 'female',
   Other: 'other',
 } as const;
+
+export const NewEntrySchema = z.object({
+  name: z.string(),
+  dateOfBirth: z.iso.date(),
+  ssn: z.string(),
+  gender: z.enum(Gender),
+  occupation: z.string()
+});
+
+export type NewPatientEntry = z.infer<typeof NewEntrySchema>;
+
+export interface PatientEntry extends NewPatientEntry {
+  id: string;
+};
+
+export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
+
